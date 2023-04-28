@@ -1,0 +1,18 @@
+{
+  "name": "12-sql-employee-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "author": "Ethan Garrison",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "asciiart-logo": "^0.2.6",
+    "console.table": "^0.10.0",
+    "mysql": "^2.18.1",
+    "node": "^19.8.1"
+  }
+}
