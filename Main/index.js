@@ -70,12 +70,12 @@ function MainPrompt() {
                     value: "VIEW_ALL_EMPLOYEES"
                 },
                 {
-                    name: "View Employees By Departments",
-                    value: "VIEW_EMPLOYEES_BY_DEPARTMENTS"
+                    name: "View Employees By Roles",
+                    value: "VIEW_EMPLOYEES_BY_ROLES"
                 },
                 {
-                    name: "View Employees By Managers",
-                    value: "VIEW_EMPLOYEES_BY_MANAGERS"
+                    name: "View Employees By Departments",
+                    value: "VIEW_EMPLOYEES_BY_DEPARTMENTS"
                 },
                 {
                     name: "Add Employees",
@@ -119,7 +119,6 @@ function MainPrompt() {
                 },
             ]
         }
-
     ])
     .then(function ({ choices }) {
         switch (choices) {
@@ -127,12 +126,12 @@ function MainPrompt() {
                 viewAllEmployees();
                 break;
 
-            case "VIEW_EMPLOYEES_BY_DEPARTMENTS":
-                viewEmployeesByDepartments();
+            case "VIEW_EMPLOYEES_BY_ROLES":
+                viewEmployeesByRoles();
                 break;
 
-            case "VIEW_EMPLOYEES_BY_MANAGERS":
-                viewEmployeesByManagers();
+            case "VIEW_EMPLOYEES_BY_DEPARTMENTS":
+                viewEmployeesByDepartments();
                 break;
 
             case "ADD_EMPLOYEES":
@@ -164,7 +163,7 @@ function MainPrompt() {
                 break;
 
             case "VIEW_ALL_DEPARTMENTS":
-                viewAllRoles();
+                viewAllDepartments();
                 break;
 
             case "ADD_DEPARTMENTS":
@@ -180,11 +179,47 @@ function MainPrompt() {
 
 function viewAllEmployees() {
     // Query the database for all employees
-    connection.query("SELECT * FROM employees", function (err, results) {
+    db.query("SELECT * FROM employees", function (err, results) {
         if (err) throw err;
         // Display the results in a table
         console.table(results);
         // Return to the main prompts
          MainPrompt();
+    });
+}
+
+function viewAllRoles() {
+    // Query the database for all roles
+    db.query("SELECT * FROM roles", function (err, results) {
+        if (err) throw err;
+        // Display the results in a table
+        console.table(results);
+        // Return to the main prompts
+         MainPrompt();
+    });
+}
+
+function viewAllDepartments() {
+    // Query the database for all departments
+    db.query("SELECT * FROM departments", function (err, results) {
+        if (err) throw err;
+        // Display the results in a table
+        console.table(results);
+        // Return to the main prompts
+         MainPrompt();
+    });
+}
+
+function viewEmployeesByRoles() {
+
+    db.query("SELECT * FROM employees WHERE roleId = ?", [roleChoices.roleId], function (err, res) {
+        if (err) throw err;
+
+        roleChoices = res.map(data => ({
+            value: data.id, name: data.name
+        }));
+
+        console.table(results);
+        promptRoles(roleChoices);
     });
 }
