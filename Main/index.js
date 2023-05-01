@@ -11,19 +11,24 @@ const app = express();
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.static("public"));
 
 // Your connection
 const db = mysql.createConnection(
     {
         // Your host
-        host: 'localhost',
+        host: "localhost",
         // Username
-        user: 'root',
+        user: "root",
         // Password
-        password: 'rootroot',
+        password: "rootroot",
         // Database
-        database: 'employee_tracker_db',
-    },
+        database: "employee_tracker_db",
+    }
+);
+
+// Start the server and listen for incoming requests
+app.listen(PORT, () => {
 
     console.log(`
     ██████████                        ████                                     
@@ -46,16 +51,18 @@ const db = mysql.createConnection(
                                                    ███ ░███                     
                                                   ░░██████                      
                                                    ░░░░░░                       
-    `)
-);
+    `);
 
-loadMainPrompts();
+// Runs the application
+MainPrompt();
 
-function loadMainPrompts() {
+});
+
+function MainPrompt() {
     inquirer.prompt([
         {
             type: "list",
-            name: "choice",
+            name: "choices",
             message: "What would you like to do?",
             choices: [
                 {
@@ -114,8 +121,8 @@ function loadMainPrompts() {
         }
 
     ])
-    .then(function ({ choice }) {
-        switch (choice) {
+    .then(function ({ choices }) {
+        switch (choices) {
             case "VIEW_ALL_EMPLOYEES":
                 viewAllEmployees();
                 break;
@@ -168,5 +175,16 @@ function loadMainPrompts() {
                 removeDepartments();
                 break;
         }
+    });
+}
+
+function viewAllEmployees() {
+    // Query the database for all employees
+    connection.query("SELECT * FROM employees", function (err, results) {
+        if (err) throw err;
+        // Display the results in a table
+        console.table(results);
+        // Return to the main prompts
+         MainPrompt();
     });
 }
