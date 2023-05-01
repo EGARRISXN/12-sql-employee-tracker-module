@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node index"
+    "test": "node index.js"
   },
   "author": "Ethan Garrison",
   "license": "MIT",
@@ -12,7 +12,8 @@
     "inquirer": "^8.2.4",
     "asciiart-logo": "^0.2.6",
     "console.table": "^0.10.0",
-    "mysql": "^2.18.1",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
     "node": "^19.8.1"
   }
 }

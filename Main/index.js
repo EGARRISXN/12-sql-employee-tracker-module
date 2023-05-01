@@ -1,21 +1,58 @@
-const { prompt } = require("inquirer");
+// Your dependencies
+const express = require("express");
+const inquirer = require("inquirer");
+const mysql = require("mysql2");
 const logo = require("asciiart-logo");
-const db = require("./db");
 require("console.table");
 
-init();
+const PORT = process.env.PORT || 3001;
+const app = express();
 
-// Display logo text, load main prompts
-function init() {
-    const logoText = logo({ name: "Employee Manager" }).render();
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-    console.log(logoText);
+// Your connection
+const db = mysql.createConnection(
+    {
+        // Your host
+        host: 'localhost',
+        // Username
+        user: 'root',
+        // Password
+        password: 'rootroot',
+        // Database
+        database: 'employee_tracker_db',
+    },
 
-    loadMainPrompts();
-}
+    console.log(`
+    ██████████                        ████                                     
+    ░░███░░░░░█                       ░░███                                     
+     ░███  █ ░ █████████████  ████████ ░███   ██████  █████ ████ ██████  ██████ 
+     ░██████  ░░███░░███░░███░░███░░███░███  ███░░███░░███ ░███ ███░░██████░░███
+     ░███░░█   ░███ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███ ░███░███████░███████ 
+     ░███ ░   █░███ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███ ░███░███░░░ ░███░░░  
+     ███████████████░███ █████░███████ █████░░██████  ░░███████░░██████░░██████ 
+    ░░░░░░░░░░░░░░░ ░░░ ░░░░░ ░███░░░ ░░░░░  ░░░░░░    ░░░░░███ ░░░░░░  ░░░░░░  
+                              ░███                     ███ ░███                 
+     ██████   ██████          █████                   ░░██████                  
+    ░░██████ ██████          ░░░░░                     ░░░░░░                   
+     ░███░█████░███   ██████  ████████    ██████    ███████  ██████  ████████   
+     ░███░░███ ░███  ░░░░░███░░███░░███  ░░░░░███  ███░░███ ███░░███░░███░░███  
+     ░███ ░░░  ░███   ███████ ░███ ░███   ███████ ░███ ░███░███████  ░███ ░░░   
+     ░███      ░███  ███░░███ ░███ ░███  ███░░███ ░███ ░███░███░░░   ░███       
+     █████     █████░░████████████ █████░░████████░░███████░░██████  █████      
+    ░░░░░     ░░░░░  ░░░░░░░░░░░░ ░░░░░  ░░░░░░░░  ░░░░░███ ░░░░░░  ░░░░░       
+                                                   ███ ░███                     
+                                                  ░░██████                      
+                                                   ░░░░░░                       
+    `)
+);
+
+loadMainPrompts();
 
 function loadMainPrompts() {
-    prompt([
+    inquirer.prompt([
         {
             type: "list",
             name: "choice",
@@ -23,18 +60,18 @@ function loadMainPrompts() {
             choices: [
                 {
                     name: "View All Employees",
-                    value: "VIEW_EMPLOYEES"
+                    value: "VIEW_ALL_EMPLOYEES"
                 },
                 {
-                    name: "View All Employees By Department",
-                    value: "VIEW_EMPLOYEES_BY_DEPARTMENT"
+                    name: "View Employees By Departments",
+                    value: "VIEW_EMPLOYEES_BY_DEPARTMENTS"
                 },
                 {
-                    name: "View All Employees By Manager",
-                    value: "VIEW_EMPLOYEES_BY_MANAGER"
+                    name: "View Employees By Managers",
+                    value: "VIEW_EMPLOYEES_BY_MANAGERS"
                 },
                 {
-                    name: "Add Employee",
+                    name: "Add Employees",
                     value: "ADD_EMPLOYEES"
                 },
                 {
@@ -42,25 +79,53 @@ function loadMainPrompts() {
                     value: "REMOVE_EMPLOYEES"
                 },
                 {
-                    name: "Update Employees Role",
-                    value: "UPDATE_EMPLOYEES_ROLE"
-                }
+                    name: "Update Employees Roles",
+                    value: "UPDATE_EMPLOYEES_ROLES"
+                },
+                {
+                    name: "Update Employees Departments",
+                    value: "UPDATE_EMPLOYEES_DEPARTMENTS"
+                },
+                {
+                    name: "View All Roles",
+                    value: "VIEW_ALL_ROLES"
+                },
+                {
+                    name: "Add Roles",
+                    value: "ADD_ROLES"
+                },
+                {
+                    name: "Remove Roles",
+                    value: "REMOVE_ROLES"
+                },
+                {
+                    name: "View All Departments",
+                    value: "VIEW_ALL_DEPARTMENTS"
+                },
+                {
+                    name: "Add Departments",
+                    value: "ADD_DEPARTMENTS"
+                },
+                {
+                    name: "Remove Departments",
+                    value: "REMOVE_DEPARTMENTS"
+                },
             ]
         }
 
     ])
     .then(function ({ choice }) {
         switch (choice) {
-            case "VIEW_EMPLOYEES":
+            case "VIEW_ALL_EMPLOYEES":
                 viewAllEmployees();
                 break;
 
-            case "VIEW_EMPLOYEES_BY_DEPARTMENT":
-                viewAllEmployeesByDepartment();
+            case "VIEW_EMPLOYEES_BY_DEPARTMENTS":
+                viewEmployeesByDepartments();
                 break;
 
-            case "VIEW_EMPLOYEES_BY_MANAGER":
-                viewAllEmployeesByManager();
+            case "VIEW_EMPLOYEES_BY_MANAGERS":
+                viewEmployeesByManagers();
                 break;
 
             case "ADD_EMPLOYEES":
@@ -71,20 +136,37 @@ function loadMainPrompts() {
                 removeEmployees();
                 break;
 
-            case "UPDATE_EMPLOYEES_ROLE":
-                updateEmployeesRole();
+            case "UPDATE_EMPLOYEES_ROLES":
+                updateEmployeesRoles();
+                break;
+
+            case "UPDATE_EMPLOYEES_DEPARTMENTS":
+                updateEmployeesDepartments();
+                break;
+
+            case "VIEW_ALL_ROLES":
+                viewAllRoles();
+                break;
+
+            case "ADD_ROLES":
+                addRoles();
+                break;
+
+            case "REMOVE_ROLES":
+                removeRoles();
+                break;
+
+            case "VIEW_ALL_DEPARTMENTS":
+                viewAllRoles();
+                break;
+
+            case "ADD_DEPARTMENTS":
+                addDepartments();
+                break;
+
+            case "REMOVE_DEPARTMENTS":
+                removeDepartments();
                 break;
         }
     });
 }
-
-function viewAllEmployees() {
-    // Query the database for all employees
-    connection.query("SELECT * FROM employees", function (err, results) {
-      if (err) throw err;
-      // Display the results in a table
-      console.table(results);
-      // Return to the main prompts
-      loadMainPrompts();
-    });
-  }
