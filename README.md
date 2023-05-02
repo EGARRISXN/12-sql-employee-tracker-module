@@ -30,7 +30,13 @@ Because this application won’t be deployed, you’ll also need to create a wal
 
 ## Screenshots
 
-
+![Screenshot (85)](https://user-images.githubusercontent.com/126130230/235567417-31df5c86-8e44-48dd-8112-90ff462e8a4e.png)
+![Screenshot (86)](https://user-images.githubusercontent.com/126130230/235567419-d2bbca20-5c03-4002-9187-9ba1e692c07d.png)
+![Screenshot (87)](https://user-images.githubusercontent.com/126130230/235567421-ac532e15-cb0a-41ac-ae87-0f47ddd249c5.png)
+![Screenshot (88)](https://user-images.githubusercontent.com/126130230/235567422-c1f82092-87c6-465c-a185-36615273caff.png)
+![Screenshot (90)](https://user-images.githubusercontent.com/126130230/235567423-1b1180fe-c3e3-419d-b9df-f019617682ef.png)
+![Screenshot (91)](https://user-images.githubusercontent.com/126130230/235567950-dcf8d10c-baf4-4a57-baa1-fe0e97c2e659.png)
+![Screenshot (92)](https://user-images.githubusercontent.com/126130230/235567951-f9ce7f0f-a0fd-46f0-b186-2d3ec45921c4.png)
 
 ## Technologies Used
 
