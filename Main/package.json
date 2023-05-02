@@ -1,7 +1,7 @@
 {
   "name": "12-sql-employee-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a sql employee tracker module",
   "main": "index.js",
   "engines": {
     "node": "18.x"
@@ -9,8 +9,24 @@
   "scripts": {
     "test": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EGARRISXN/12-sql-employee-tracker-module.git"
+  },
+  "keywords": [
+    "express.js",
+    "node.js",
+    "sql",
+    "employee",
+    "tracker",
+    "module"
+  ],
   "author": "Ethan Garrison",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EGARRISXN/12-sql-employee-tracker-module/issues"
+  },
+  "homepage": "https://github.com/EGARRISXN/12-sql-employee-tracker-module#readme",
   "dependencies": {
     "inquirer": "^8.2.4",
     "asciiart-logo": "^0.2.6",
