@@ -2,7 +2,7 @@
 const express = require("express");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const logo = require("asciiart-logo");
+const logo = require("./helpers/logo");
 require("console.table");
 
 const PORT = process.env.PORT || 3001;
@@ -15,47 +15,24 @@ app.use(express.static("public"));
 
 // Your connection
 const db = mysql.createConnection(
-    {
-        // Your host
-        host: "localhost",
-        // Username
-        user: "root",
-        // Password
-        password: "rootroot",
-        // Database
-        database: "employee_tracker_db",
-    }
+  {
+      // Your host
+      host: "localhost",
+      // Username
+      user: "root",
+      // Password
+      password: "rootroot",
+      // Database
+      database: "employee_tracker_db",
+  }
 );
 
 // Start the server and listen for incoming requests
 app.listen(PORT, () => {
-
-    console.log(`
-    ██████████                        ████                                     
-    ░░███░░░░░█                       ░░███                                     
-     ░███  █ ░ █████████████  ████████ ░███   ██████  █████ ████ ██████  ██████ 
-     ░██████  ░░███░░███░░███░░███░░███░███  ███░░███░░███ ░███ ███░░██████░░███
-     ░███░░█   ░███ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███ ░███░███████░███████ 
-     ░███ ░   █░███ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███ ░███░███░░░ ░███░░░  
-     ███████████████░███ █████░███████ █████░░██████  ░░███████░░██████░░██████ 
-    ░░░░░░░░░░░░░░░ ░░░ ░░░░░ ░███░░░ ░░░░░  ░░░░░░    ░░░░░███ ░░░░░░  ░░░░░░  
-                              ░███                     ███ ░███                 
-     ██████   ██████          █████                   ░░██████                  
-    ░░██████ ██████          ░░░░░                     ░░░░░░                   
-     ░███░█████░███   ██████  ████████    ██████    ███████  ██████  ████████   
-     ░███░░███ ░███  ░░░░░███░░███░░███  ░░░░░███  ███░░███ ███░░███░░███░░███  
-     ░███ ░░░  ░███   ███████ ░███ ░███   ███████ ░███ ░███░███████  ░███ ░░░   
-     ░███      ░███  ███░░███ ░███ ░███  ███░░███ ░███ ░███░███░░░   ░███       
-     █████     █████░░████████████ █████░░████████░░███████░░██████  █████      
-    ░░░░░     ░░░░░  ░░░░░░░░░░░░ ░░░░░  ░░░░░░░░  ░░░░░███ ░░░░░░  ░░░░░       
-                                                   ███ ░███                     
-                                                  ░░██████                      
-                                                   ░░░░░░                       
-    `);
-
-// Runs the application
+// Display the logo art
+console.log(logo());
+// Start the application
 MainPrompt();
-
 });
 
 function MainPrompt() {
