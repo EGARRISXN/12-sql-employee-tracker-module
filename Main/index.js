@@ -117,6 +117,10 @@ function MainPrompt() {
                     name: "Update Employees Departments",
                     value: "UPDATE_EMPLOYEES_DEPARTMENTS"
                 },
+                {
+                    name: "Exit Application",
+                    value: "EXIT_APPLICATION"
+                },
             ]
         }
     ])
@@ -175,6 +179,10 @@ function MainPrompt() {
 
             case "UPDATE_EMPLOYEES_DEPARTMENTS":
                 updateEmployeesDepartments();
+                break;
+
+            case "EXIT_APPLICATION":
+                exitApplication();
                 break;
         }
     });
@@ -562,4 +570,9 @@ function updateEmployeesDepartments() {
         });
       });
     });
+}
+
+function exitApplication() {
+    console.log("Exiting application...");
+    process.exit(); // exit the Node.js process
 }
